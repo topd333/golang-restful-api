@@ -3,12 +3,12 @@ package app
 import (
     "context"
     "fmt"
-    jwt "github.com/dgrijalva/jwt-go"
-    "golang-restful-api/models"
-    u "golang-restful-api/utils"
     "net/http"
     "os"
     "strings"
+    jwt "github.com/dgrijalva/jwt-go"
+    "golang-restful-api/models"
+    u "golang-restful-api/utils"
 )
 
 var JwtAuthentication = func(next http.Handler) http.Handler {

@@ -1,12 +1,12 @@
 package models
 
 import (
+    "os"
+    "strings"
     jwt "github.com/dgrijalva/jwt-go"
     "github.com/jinzhu/gorm"
     u "golang-restful-api/utils"
     "golang.org/x/crypto/bcrypt"
-    "os"
-    "strings"
 )
 
 //User account Struct

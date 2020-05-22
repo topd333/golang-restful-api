@@ -1,12 +1,12 @@
 package main
 
 import (
+    "os"
     "fmt"
+    "net/http"
     "github.com/gorilla/mux"
     "golang-restful-api/app"
     "golang-restful-api/controllers"
-    "net/http"
-    "os"
 )
 
 func main() {

@@ -2,9 +2,9 @@ package controllers
 
 import (
     "encoding/json"
+    "net/http"
     "golang-restful-api/models"
     u "golang-restful-api/utils"
-    "net/http"
 )
 
 var CreateContact = func(w http.ResponseWriter, r *http.Request) {

@@ -1,8 +1,8 @@
 package app
 
 import (
-    u "golang-restful-api/utils"
     "net/http"
+    u "golang-restful-api/utils"
 )
 
 var NotFoundHandler = func(next http.Handler) http.Handler {
