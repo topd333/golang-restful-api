@@ -34,19 +34,6 @@ func (contact *Contact) Validate() (map[string]interface{}, bool) {
     return u.Message(true, "success"), true
 }
 
-func (contact *Contact) Create() (map[string]interface{}) {
-
-    if resp, ok := contact.Validate(); !ok {
-        return resp
-    }
-
-    GetDB().Create(contact)
-
-    resp := u.Message(true, "success")
-    resp["contact"] = contact
-    return resp
-}
-
 func GetContacts(user uint) ([]*Contact) {
 
     contacts := make([]*Contact, 0)
@@ -63,6 +50,29 @@ func GetContact(id uint) (*Contact) {
 
     contact := &Contact{}
     err := GetDB().Table("contacts").Where("id = ?", id).First(contact).Error
+    if err != nil {
+        fmt.Println(err)
+        return nil
+    }
+    return contact
+}
+
+func (contact *Contact) Create() (map[string]interface{}) {
+
+    if resp, ok := contact.Validate(); !ok {
+        return resp
+    }
+
+    GetDB().Create(contact)
+
+    resp := u.Message(true, "success")
+    resp["contact"] = contact
+    return resp
+}
+
+func UpdateContact(id uint, contact *Contact) (*Contact) {
+
+    err := GetDB().Table("contacts").Where("id = ?", id).Update(contact).First(contact).Error
     if err != nil {
         fmt.Println(err)
         return nil

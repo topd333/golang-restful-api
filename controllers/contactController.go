@@ -9,22 +9,6 @@ import (
     u "golang-restful-api/utils"
 )
 
-var CreateContact = func(w http.ResponseWriter, r *http.Request) {
-
-    user := r.Context().Value("user").(uint)
-    contact := &models.Contact{}
-
-    err := json.NewDecoder(r.Body).Decode(contact)
-    if err != nil {
-        u.Respond(w, u.Message(false, "Error while decoding request body"))
-        return
-    }
-
-    contact.UserId = user
-    resp := contact.Create()
-    u.Respond(w, resp)
-}
-
 var GetContacts = func(w http.ResponseWriter, r *http.Request) {
 
     id := r.Context().Value("user").(uint)
@@ -44,6 +28,45 @@ var GetContact = func(w http.ResponseWriter, r *http.Request) {
         return
     }
     data := models.GetContact(uint(id))
+    resp := u.Message(true, "success")
+    resp["data"] = data
+    u.Respond(w, resp)
+}
+
+var CreateContact = func(w http.ResponseWriter, r *http.Request) {
+
+    user := r.Context().Value("user").(uint)
+    contact := &models.Contact{}
+
+    err := json.NewDecoder(r.Body).Decode(contact)
+    if err != nil {
+        u.Respond(w, u.Message(false, "Error while decoding request body"))
+        return
+    }
+
+    contact.UserId = user
+    resp := contact.Create()
+    u.Respond(w, resp)
+}
+
+var UpdateContact = func(w http.ResponseWriter, r *http.Request) {
+
+    vars := mux.Vars(r)
+    key := vars["id"]
+    id, err := strconv.ParseUint(key, 10, 64)
+    if err != nil {
+        u.Respond(w, u.Message(false, "Error while decoding request body"))
+        return
+    }
+
+    contact := &models.Contact{}
+    err = json.NewDecoder(r.Body).Decode(contact)
+    if err != nil {
+        u.Respond(w, u.Message(false, "Error while decoding request body"))
+        return
+    }
+
+    data := models.UpdateContact(uint(id), contact)
     resp := u.Message(true, "success")
     resp["data"] = data
     u.Respond(w, resp)

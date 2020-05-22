@@ -14,8 +14,9 @@ func main() {
 
     router.HandleFunc("/api/user/register", controllers.Register).Methods("POST")
     router.HandleFunc("/api/user/login", controllers.Login).Methods("POST")
-    router.HandleFunc("/api/contacts", controllers.CreateContact).Methods("POST")
     router.HandleFunc("/api/contacts", controllers.GetContacts).Methods("GET")
+    router.HandleFunc("/api/contacts", controllers.CreateContact).Methods("POST")
+    router.HandleFunc("/api/contacts/{id}", controllers.UpdateContact).Methods("PUT")
     router.HandleFunc("/api/contacts/{id}", controllers.GetContact).Methods("GET")
     router.HandleFunc("/api/contacts/{id}", controllers.DeleteContact).Methods("DELETE")
 
