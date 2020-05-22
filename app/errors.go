@@ -5,11 +5,11 @@ import (
     u "golang-restful-api/utils"
 )
 
-var NotFoundHandler = func(next http.Handler) http.Handler {
-
-    return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-        w.WriteHeader(http.StatusNotFound)
-        u.Respond(w, u.Message(false, "This resources was not found on our server"))
-        next.ServeHTTP(w, r)
-    })
-}
+var NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+    response := make(map[string]interface{})
+    response = u.Message(false, "This resources was not found on the server")
+    w.WriteHeader(http.StatusNotFound)
+    w.Header().Add("Content-Type", "application/json")
+    u.Respond(w, response)
+    return
+})
