@@ -43,7 +43,7 @@ func (account *Account) Validate() (map[string]interface{}, bool) {
     return u.Message(false, "Requirement passed"), true
 }
 
-func (account *Account) Create() (map[string]interface{}) {
+func (account *Account) Register() (map[string]interface{}) {
 
     if resp, ok := account.Validate(); !ok {
         return resp
@@ -96,7 +96,7 @@ func Login(email, password string) (map[string]interface{}) {
     tokenString, _ := token.SignedString([]byte(os.Getenv("token_password")))
     account.Token = tokenString //Store the token in the response
 
-    resp := u.Message(true, "Logged In")
+    resp := u.Message(true, "User has been logged in")
     resp["account"] = account
     return resp
 }

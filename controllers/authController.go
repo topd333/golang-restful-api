@@ -7,7 +7,7 @@ import (
 	u "golang-restful-api/utils"
 )
 
-var CreateAccount = func(w http.ResponseWriter, r *http.Request) {
+var Register = func(w http.ResponseWriter, r *http.Request) {
 
 	account := &models.Account{}
 	err := json.NewDecoder(r.Body).Decode(account)
@@ -16,11 +16,11 @@ var CreateAccount = func(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	resp := account.Create()
+	resp := account.Register()
 	u.Respond(w, resp)
 }
 
-var Authenticate = func(w http.ResponseWriter, r *http.Request) {
+var Login = func(w http.ResponseWriter, r *http.Request) {
 
 	account := &models.Account{}
 	err := json.NewDecoder(r.Body).Decode(account)

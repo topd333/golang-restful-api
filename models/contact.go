@@ -31,7 +31,6 @@ func (contact *Contact) Validate() (map[string]interface{}, bool) {
         return u.Message(false, "User is not recognized"), false
     }
 
-    //All the required parameters are present
     return u.Message(true, "success"), true
 }
 
@@ -48,16 +47,6 @@ func (contact *Contact) Create() (map[string]interface{}) {
     return resp
 }
 
-func GetContact(id uint) (*Contact) {
-
-    contact := &Contact{}
-    err := GetDB().Table("contacts").Where("id = ?", id).First(contact).Error
-    if err != nil {
-        return nil
-    }
-    return contact
-}
-
 func GetContacts(user uint) ([]*Contact) {
 
     contacts := make([]*Contact, 0)
@@ -68,4 +57,26 @@ func GetContacts(user uint) ([]*Contact) {
     }
 
     return contacts
+}
+
+func GetContact(id uint) (*Contact) {
+
+    contact := &Contact{}
+    err := GetDB().Table("contacts").Where("id = ?", id).First(contact).Error
+    if err != nil {
+        fmt.Println(err)
+        return nil
+    }
+    return contact
+}
+
+func DeleteContact(id uint) (*Contact) {
+
+    contact := &Contact{}
+    err := GetDB().Table("contacts").Where("id = ?", id).Delete(&contact).Error
+    if err != nil {
+        fmt.Println(err)
+        return nil
+    }
+    return nil
 }
