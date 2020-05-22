@@ -9,7 +9,6 @@ var NotFoundHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Reque
     response := make(map[string]interface{})
     response = u.Message(false, "This resources was not found on the server")
     w.WriteHeader(http.StatusNotFound)
-    w.Header().Add("Content-Type", "application/json")
     u.Respond(w, response)
     return
 })
