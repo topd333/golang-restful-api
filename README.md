@@ -23,3 +23,5 @@ Please fill database information to `.env` file
 ```
 go run main.go
 ```
+
+You can call Rest API on `http://localhost:8000`.
